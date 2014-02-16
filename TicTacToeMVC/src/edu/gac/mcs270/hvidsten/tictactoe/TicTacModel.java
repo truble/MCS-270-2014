@@ -1,7 +1,18 @@
+/*
+ * Model class for the TicTacToe game. 
+ * Includes all ADT's for playing game. (Abstract Data Types)
+ * Includes all logic for playing game. 
+ * 
+ * Mike Hvidsten
+ * Feb. 10, 2014
+ */
+
 package edu.gac.mcs270.hvidsten.tictactoe;
 
 public class TicTacModel {
+	// Game board is an array of Positions
 	private Position board[][];
+	// Players are objects themselves
 	private Player curPlayer, xPlayer, oPlayer;
 	private TicTacController gameCtrl;
 	
@@ -27,6 +38,7 @@ public class TicTacModel {
 		return board[i][j];
 	}
 	
+	// To initialize game, create board
 	public void initGame() {
 		// Create Board Buttons
 		int boardSize = gameCtrl.getBoardSize();
@@ -49,7 +61,9 @@ public class TicTacModel {
 		gameCtrl.updateView();
 	}
 	
-	// No error checking needed, as it is done by controller
+	// A game move consists of setting a position to that player
+	//  who made the move. 
+	// No error checking is needed, as it is done by controller
 	public void doPlayerMove(Position p) {
 		if(curPlayer == xPlayer)
 			p.setToXPosition();
@@ -57,6 +71,8 @@ public class TicTacModel {
 			p.setToOPosition();
 		updateGameView();
 		
+		// As part of move, check to see if their is a winner
+		//  or a draw
 		if(isWinGameState()) {
 			gameCtrl.announceWinner(curPlayer);
 			// Note: game reset is handled by controller
@@ -70,6 +86,8 @@ public class TicTacModel {
 		}
 	}
 
+	// Game is complete if all positions have been played
+	//  (i.e. are not empty)
 	private boolean isCompletedGameState() {
 		boolean isComplete = true;
 		// Check rows
@@ -84,6 +102,8 @@ public class TicTacModel {
 		return isComplete;
 	}
 
+	// Game has winner if there is a row winner,
+	//  a column winner, or a diagonal winner
 	private boolean isWinGameState() {
 		// Check rows
 		for (int i = 0; i < gameCtrl.getBoardSize(); i++) {
@@ -126,6 +146,7 @@ public class TicTacModel {
 		return false;
 	}
 	
+	// Chekc if a list of positions is a winning list 
 	public boolean listHasWin(Position[] posList){
 		boolean listWin = true;
 		

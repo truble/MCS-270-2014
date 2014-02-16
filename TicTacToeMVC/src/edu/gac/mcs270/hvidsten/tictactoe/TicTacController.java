@@ -1,3 +1,11 @@
+/*
+ * Controller class for the TicTacToe game. 
+ * Coordinates communication between the View and the Model
+ * 
+ * Mike Hvidsten
+ * Feb. 10, 2014
+ */
+
 package edu.gac.mcs270.hvidsten.tictactoe;
 
 public class TicTacController {
@@ -17,7 +25,6 @@ public class TicTacController {
 	public int getBoardSize() {
 		return numColsRows;
 	}
-
 
 	public void setGameView(TicTacView gv){
 		gameView = gv;
@@ -41,8 +48,12 @@ public class TicTacController {
 		gameView.setBoard(board);
 	}
 
-
+	// Handle the request to make a move. This will come from 
+	//  the View class - in particular from the position that
+	//  was selected
 	public void handlePlayerMove(int i, int j) {
+		// Get the Position at (i,j) and tell the model to 
+		//  make that move
 		Position p = gameModel.getPositionAt(i,j);
 		if(p.isX() || p.isO()) {
 			gameView.sendErrorMsg("Illegal Move");
@@ -68,6 +79,8 @@ public class TicTacController {
 		gameView.updateView(gameModel.getBoard());
 	}
 	
+	// Controller is where main class should go, as it is
+	//  entry point to control of game
 	public static void main(String[] args) {
 		int boardSize = 3;
 		TicTacController gameCtrl = new TicTacController(boardSize);
