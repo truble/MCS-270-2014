@@ -29,6 +29,10 @@ public class TicTacModel {
 	public TicTacController getGameCtrl() {
 		return gameCtrl;
 	}
+	
+	public void setBoard(Position[][] b){
+		board = b;
+	}
 
 	public Position[][] getBoard() {
 		return board;
